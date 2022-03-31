@@ -22,16 +22,16 @@ router.get("/:id", validateActionId, async(req, res, next) => {
     }
 })
 
-router.post("/", async(req, res) => {
+router.post("/", async(req, res, next) => {
     try{
         const newAction = await Actions.insert(req.body)
         console.log(newAction)
         res.status(201).json(newAction)
-    } catch{
+    } catch(err){
         next(err)
     }
 })
-
+//hey its updated
 router.put("/:id", validateActionId, validateAction, async(req, res) => {
     console.log(req.params.id)
     const updatedAction = await Actions.update(req.params.id, {
@@ -40,7 +40,7 @@ router.put("/:id", validateActionId, validateAction, async(req, res) => {
         notes: req.notes,
         completed: req.completed
     })
-    req.status(200).json(updatedAction)
+    res.status(200).json(updatedAction)
 })
 
 router.delete("/:id", validateActionId, async(req, res, next) => {
@@ -51,5 +51,6 @@ router.delete("/:id", validateActionId, async(req, res, next) => {
         next(err)
     }
 })
+
 
 module.exports = router

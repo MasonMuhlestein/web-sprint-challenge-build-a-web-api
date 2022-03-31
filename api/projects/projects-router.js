@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
             res.status(200).json(project)
         })
         .catch(err => {
-            res.status(500).json({message: 'The posts information could not be retireved'})
+            res.status(400).json({message: 'The posts information could not be retrieved'})
         })
 })
 
@@ -30,11 +30,11 @@ router.post('/', (req, res) => {
     })
     .catch(error =>{
         console.log(error);
-        res.status(500).json({ message: 'Error adding the project'})
+        res.status(400).json({ message: 'Error adding the project'})
     })
 })
 
-router.pust("/:id", validateProjectId, validateProject, (req, res, next) => {
+router.put("/:id", validateProjectId, validateProject, (req, res, next) => {
     const {name, description, completed} = req.body
     if(!name || !description, !completed){
         res.status(400).json({message: 'Project ID does not exist'})
@@ -65,7 +65,7 @@ router.get("/:id/actions", validateProjectId, async(req, res, next) => {
             res.status(400).json((actions))
         }
     })
-    .catch(nex)
+    .catch(next)
 })
 
 module.exports = router

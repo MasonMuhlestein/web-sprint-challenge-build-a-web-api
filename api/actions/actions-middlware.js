@@ -11,7 +11,7 @@ async function validateActionId(req, res, next) {
             next()
         }
     } catch(err){
-        res.status(500).json({message: 'An error occured, action not found'})
+        res.status(400).json({message: 'An error occured, action not found'})
     }
 }
 
